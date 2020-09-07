@@ -11,26 +11,20 @@ public class WarriorMovement : MonoBehaviour
     float horizontalMove = 0f;
     bool jump = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
         horizontalMove = Input.GetAxisRaw("Horizontal_warrior") * runSpeed;
-        animator.SetFloat("Warrior_Speed", Mathf.Abs(horizontalMove));
+        animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
         if (Input.GetButtonDown("Jump_warrior")){
             jump = true;
-            animator.SetBool("Warrior_isJumping", true);
+            animator.SetBool("isJumping", true);
         }
     }
 
     public void OnLanding(){
-        animator.SetBool("Warrior_isJumping", false);
+        animator.SetBool("isJumping", false);
     }
 
     void FixedUpdate() {
