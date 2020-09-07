@@ -19,7 +19,12 @@ public class WizardMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump_wizard")){
             jump = true;
+            animator.SetBool("isJumping", true);
         }
+    }
+
+    public void OnLanding(){
+        animator.SetBool("isJumping", false);
     }
 
     void FixedUpdate() {
