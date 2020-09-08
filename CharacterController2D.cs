@@ -6,7 +6,7 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] private float m_JumpForce = 400f;							// Amount of force added when the player jumps.
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;	// How much to smooth out the movement
 	[SerializeField] private bool m_AirControl = false;							// Whether or not a player can steer while jumping;
-	[SerializeField] private LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
+	public LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
 	public Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
 
 	public float k_GroundedRadius = .05f; // Radius of the overlap circle to determine if grounded
@@ -14,6 +14,9 @@ public class CharacterController2D : MonoBehaviour
 	private Rigidbody2D m_Rigidbody2D;
 	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 	private Vector3 m_Velocity = Vector3.zero;
+
+	public int jumpLimit = 3;
+	private int jumpCounter = 0;
 
 	[Header("Events")]
 	[Space]
@@ -45,6 +48,7 @@ public class CharacterController2D : MonoBehaviour
 			{
 				m_Grounded = true;
 				if (!wasGrounded)
+					jumpCounter = 0;
 					OnLandEvent.Invoke();
 			}
 		}
@@ -75,9 +79,10 @@ public class CharacterController2D : MonoBehaviour
 			}
 		}
 		// If the player should jump...
-		if (m_Grounded && jump)
+		if (((m_Grounded || jumpCounter < jumpLimit) && jump) )
 		{
 			// Add a vertical force to the player.
+			jumpCounter += 1;
 			m_Grounded = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 		}
