@@ -22,8 +22,11 @@ public class WarriorCombat : MonoBehaviour
     public int maxHealth = 100;
     int currentHealth;
 
+    public HealthBar healthBar;
+
     void Start () {
         currentHealth = maxHealth;
+        healthBar.setHealth((float)currentHealth / maxHealth);
     }
 
     void Update(){
@@ -31,6 +34,11 @@ public class WarriorCombat : MonoBehaviour
             if (Input.GetButtonDown("Attack_warrior")){
                 Attack();
                 nextAttackTime = Time.time + attackCooldown;
+            }
+        }
+        if (Debug.isDebugBuild) {
+            if (Input.GetKeyDown("g")) {
+                TakeHit(10);
             }
         }
         
@@ -51,6 +59,7 @@ public class WarriorCombat : MonoBehaviour
     void TakeHit(int damage){
         animator.SetTrigger("Hurt");
         currentHealth -= damage;
+        healthBar.setHealth(Mathf.Max((float)currentHealth / maxHealth, 0f));
 
         if (currentHealth <= 0){
             Die();
