@@ -19,11 +19,13 @@ public class WizardMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump_wizard")){
             jump = true;
+            SoundManagingScript.PlaySound("wizardJump");
             animator.SetBool("isJumping", true);
         }
     }
 
     public void OnLanding(){
+        
         animator.SetBool("isJumping", false);
     }
 

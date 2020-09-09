@@ -30,6 +30,9 @@ public class WizardCombat : MonoBehaviour
         if (Time.time >= nextAttackTime){
             if (Input.GetButtonDown("Attack_wizard")){
                 Attack();
+                // Audio
+                SoundManagingScript.PlaySound("wizardSpell");
+                // Fin Audio
                 nextAttackTime = Time.time + attackCooldown;
             }
         }
@@ -49,6 +52,7 @@ public class WizardCombat : MonoBehaviour
     }
     
         void TakeHit(int damage){
+        SoundManagingScript.PlaySound("wizardHit");
         animator.SetTrigger("Hurt");
         currentHealth -= damage;
 
