@@ -88,6 +88,9 @@ public class CharacterController2D : MonoBehaviour
 		}
 	}
 
+	public void BlockActions() {
+		gameObject.GetComponent<CharacterController2D>().enabled = false;
+	}
 
 	private void Flip()
 	{

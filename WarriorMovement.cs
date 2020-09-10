@@ -33,6 +33,11 @@ public class WarriorMovement : MonoBehaviour
         
     }
 
+    public void BlockActions()
+    {
+        gameObject.GetComponent<WarriorMovement>().enabled = false;
+    }
+
     void FixedUpdate() {
         controller.Move(horizontalMove * Time.fixedDeltaTime, jump);
         jump = false;
