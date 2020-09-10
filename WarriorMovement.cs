@@ -11,6 +11,7 @@ public class WarriorMovement : MonoBehaviour
     float horizontalMove = 0f;
     bool jump = false;
 
+
     // Update is called once per frame
     void Update()
     {
@@ -20,11 +21,16 @@ public class WarriorMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump_warrior")){
             jump = true;
             animator.SetBool("isJumping", true);
+            // INICIO AUDIO: SALTO
+            SoundManagingScript.PlaySound("warriorJump");
+            // FIN AUDIO: SALTO
         }
     }
 
     public void OnLanding(){
+        
         animator.SetBool("isJumping", false);
+        
     }
 
     void FixedUpdate() {
