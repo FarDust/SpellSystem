@@ -16,7 +16,7 @@ public class WarriorCombat : MonoBehaviour
     public float attackCooldown = 0.5f;
     // Tiempo a partir del cual puede ocurrir el siguiente ataque
     float nextAttackTime = 0f;
-    
+
     // Stats
     public int attackDamage = 40;
     public int maxHealth = 100;
@@ -45,7 +45,7 @@ public class WarriorCombat : MonoBehaviour
                 TakeHit(10);
             }
         }
-        
+
     }
 
     void Attack(){
@@ -55,7 +55,7 @@ public class WarriorCombat : MonoBehaviour
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
         // Dañar enemigos
         foreach(Collider2D enemy in hitEnemies){
-            //enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
+            enemy.gameObject.SendMessage("TakeHit", attackDamage);
             Debug.Log("Enemy hit:" + enemy.name);
         }
     }
