@@ -73,9 +73,13 @@ public class WarriorCombat : MonoBehaviour
         healthBar.setHealth(Mathf.Max((float)currentHealth / maxHealth, 0f));
 
         if (currentHealth <= 0){
-            gameObject.SendMessage("BlockActions");
-            StartCoroutine(Die());
+            PlayerRelease();
         }
+    }
+
+    public void PlayerRelease() {
+        gameObject.SendMessage("BlockActions");
+        StartCoroutine(Die());
     }
 
     IEnumerator Die(){
