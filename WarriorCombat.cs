@@ -29,23 +29,29 @@ public class WarriorCombat : MonoBehaviour
         healthBar.setHealth((float)currentHealth / maxHealth);
     }
 
-    void Update(){
-        if (Time.time >= nextAttackTime){
-            if (Input.GetButtonDown("Attack_warrior")){
-                Attack();
-                // Audio
-                SoundManagingScript.PlaySound("warriorSword");
-                // Fin Audio
-                nextAttackTime = Time.time + attackCooldown;
+    void Update()
+    {
+        if (currentHealth > 0) { 
+            if (Time.time >= nextAttackTime)
+            {
+                if (Input.GetButtonDown("Attack_warrior"))
+                {
+                    Attack();
+                    // Audio
+                    SoundManagingScript.PlaySound("warriorSword");
+                    // Fin Audio
+                    nextAttackTime = Time.time + attackCooldown;
+                }
+            }
+            if (Debug.isDebugBuild)
+            {
+                if (Input.GetKeyDown("g"))
+                {
+                    SoundManagingScript.PlaySound("warriorHit");
+                    TakeHit(10);
+                }
             }
         }
-        if (Debug.isDebugBuild) {
-            if (Input.GetKeyDown("g")) {
-                SoundManagingScript.PlaySound("warriorHit");
-                TakeHit(10);
-            }
-        }
-        
     }
 
     void Attack(){
@@ -66,12 +72,15 @@ public class WarriorCombat : MonoBehaviour
         healthBar.setHealth(Mathf.Max((float)currentHealth / maxHealth, 0f));
 
         if (currentHealth <= 0){
-            Die();
+            gameObject.SendMessage("BlockActions");
+            StartCoroutine(Die());
         }
     }
 
-    void Die(){
+    IEnumerator Die(){
         animator.SetBool("isDead", true);
+        yield return new WaitForSeconds(1f);
+        healthBar.SendMessage("PlayerDeath");
     }
 
     private void OnDrawGizmosSelected() {
