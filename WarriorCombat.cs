@@ -33,11 +33,15 @@ public class WarriorCombat : MonoBehaviour
         if (Time.time >= nextAttackTime){
             if (Input.GetButtonDown("Attack_warrior")){
                 Attack();
+                // Audio
+                SoundManagingScript.PlaySound("warriorSword");
+                // Fin Audio
                 nextAttackTime = Time.time + attackCooldown;
             }
         }
         if (Debug.isDebugBuild) {
             if (Input.GetKeyDown("g")) {
+                SoundManagingScript.PlaySound("warriorHit");
                 TakeHit(10);
             }
         }
