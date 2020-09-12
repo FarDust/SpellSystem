@@ -68,6 +68,7 @@ public class WarriorCombat : MonoBehaviour
     }
 
     public void TakeHit(int damage){
+        SoundManagingScript.PlaySound("warriorHit");
         animator.SetTrigger("Hurt");
         currentHealth -= damage;
         healthBar.setHealth(Mathf.Max((float)currentHealth / maxHealth, 0f));
