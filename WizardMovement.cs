@@ -29,6 +29,11 @@ public class WizardMovement : MonoBehaviour
         animator.SetBool("isJumping", false);
     }
 
+    public void BlockActions()
+    {
+        gameObject.GetComponent<WarriorMovement>().enabled = false;
+    }
+
     void FixedUpdate() {
         controller.Move(horizontalMove * Time.fixedDeltaTime, jump);
         jump = false;

@@ -22,21 +22,25 @@ public class WizardCombat : MonoBehaviour
     public int maxHealth = 100;
     int currentHealth;
 
+    public HealthBar healthBar;
+
     void Start () {
         currentHealth = maxHealth;
+        healthBar.setHealth((float)currentHealth / maxHealth);
     }
 
     void Update(){
-        if (Time.time >= nextAttackTime){
-            if (Input.GetButtonDown("Attack_wizard")){
-                Attack();
-                // Audio
-                SoundManagingScript.PlaySound("wizardSpell");
-                // Fin Audio
-                nextAttackTime = Time.time + attackCooldown;
+        if (currentHealth > 0) {
+            if (Time.time >= nextAttackTime){
+                if (Input.GetButtonDown("Attack_wizard")){
+                    Attack();
+                    // Audio
+                    SoundManagingScript.PlaySound("wizardSpell");
+                    // Fin Audio
+                    nextAttackTime = Time.time + attackCooldown;
+                }
             }
         }
-        
     }
 
     void Attack(){
@@ -46,7 +50,7 @@ public class WizardCombat : MonoBehaviour
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
         // Dañar enemigos
         foreach(Collider2D enemy in hitEnemies){
-            //enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
+            enemy.gameObject.SendMessage("TakeHit", attackDamage);
             Debug.Log("Enemy hit:" + enemy.name);
         }
     }
@@ -55,14 +59,22 @@ public class WizardCombat : MonoBehaviour
         SoundManagingScript.PlaySound("wizardHit");
         animator.SetTrigger("Hurt");
         currentHealth -= damage;
+        healthBar.setHealth(Mathf.Max((float)currentHealth / maxHealth, 0f));
 
         if (currentHealth <= 0){
-            Die();
+            PlayerRelease();
         }
     }
 
-    void Die(){
+    public void PlayerRelease() {
+        gameObject.SendMessage("BlockActions");
+        StartCoroutine(Die());
+    }
+
+    IEnumerator Die(){
         animator.SetBool("isDead", true);
+        yield return new WaitForSeconds(1f);
+        healthBar.SendMessage("PlayerDeath");
     }
 
     private void OnDrawGizmosSelected() {
