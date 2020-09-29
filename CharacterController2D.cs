@@ -18,6 +18,14 @@ public class CharacterController2D : MonoBehaviour
 	public int jumpLimit = 3;
 	private int jumpCounter = 0;
 
+// Ladder Variables
+	[HideInInspector] public bool canClimb = false;
+	[HideInInspector] public bool bottomLadder = false;
+	[HideInInspector] public bool topLadder = false;
+	[HideInInspector] public bool isClimbing = false;
+	[HideInInspector] public ladder ladder;
+	private float naturalGravity;
+
 	[Header("Events")]
 	[Space]
 
@@ -29,6 +37,7 @@ public class CharacterController2D : MonoBehaviour
 	private void Awake()
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
+		naturalGravity = m_Rigidbody2D.gravityScale;
 
 		if (OnLandEvent == null)
 			OnLandEvent = new UnityEvent();
@@ -55,24 +64,34 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 
-	public void Move(float move, bool jump)
+	public void Move(float horizontalMove, float verticalMove, bool jump)
 	{
+		// only move vertically if is on a ladder
+		if (canClimb && Mathf.Abs(verticalMove) > .1f){
+			isClimbing = true;
+			m_Rigidbody2D.gravityScale = 0f;
+			Climb(verticalMove);
+		}
+		if (!canClimb){
+			isClimbing = false;
+			m_Rigidbody2D.gravityScale = naturalGravity;
+			}
 		//only control the player if grounded or airControl is turned on
 		if (m_Grounded || m_AirControl)
 		{
 			// Move the character by finding the target velocity
-			Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
+			Vector3 targetVelocity = new Vector2(horizontalMove * 10f, m_Rigidbody2D.velocity.y);
 			// And then smoothing it out and applying it to the character
 			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
 			// If the input is moving the player right and the player is facing left...
-			if (move > 0 && !m_FacingRight)
+			if (horizontalMove > 0 && !m_FacingRight)
 			{
 				// ... flip the player.
 				Flip();
 			}
 			// Otherwise if the input is moving the player left and the player is facing right...
-			else if (move < 0 && m_FacingRight)
+			else if (horizontalMove < 0 && m_FacingRight)
 			{
 				// ... flip the player.
 				Flip();
@@ -82,9 +101,20 @@ public class CharacterController2D : MonoBehaviour
 		if (((m_Grounded || jumpCounter < jumpLimit) && jump) )
 		{
 			// Add a vertical force to the player.
+			m_Rigidbody2D.gravityScale = naturalGravity;
+			isClimbing = false;
 			jumpCounter += 1;
 			m_Grounded = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+		}
+	}
+
+	private void Climb(float verticalMove){
+		if (verticalMove > .1f && !topLadder){
+			m_Rigidbody2D.velocity = new Vector2(0f, verticalMove);
+		}
+		else if (verticalMove < -.1f && !bottomLadder){
+			m_Rigidbody2D.velocity = new Vector2(0f, verticalMove);
 		}
 	}
 
