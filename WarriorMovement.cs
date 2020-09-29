@@ -8,38 +8,44 @@ public class WarriorMovement : MonoBehaviour
     public Animator animator;
 
     public float runSpeed = 40f;
+    public float climbSpeed = 100f;
     float horizontalMove = 0f;
+    float verticalMove = 0f;
     bool jump = false;
 
-
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         horizontalMove = Input.GetAxisRaw("Horizontal_warrior") * runSpeed;
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
+        verticalMove = Input.GetAxisRaw("Vertical_warrior") * climbSpeed;
+        animator.SetBool("isClimbing", controller.isClimbing);
+
+        if (controller.isClimbing && 
+            (Mathf.Abs(verticalMove) < .1f || controller.topLadder || controller.bottomLadder)) {
+            animator.speed = 0f;
+        }
+        else {
+            animator.speed = 1f;
+        }
+
         if (Input.GetButtonDown("Jump_warrior")){
             jump = true;
-            animator.SetBool("isJumping", true);
-            // INICIO AUDIO: SALTO
             SoundManagingScript.PlaySound("warriorJump");
-            // FIN AUDIO: SALTO
+            animator.SetBool("isJumping", true);
         }
     }
 
-    public void OnLanding(){
-        
+    public void OnLanding() {
         animator.SetBool("isJumping", false);
-        
     }
 
-    public void BlockActions()
-    {
+    public void BlockActions() {
         gameObject.GetComponent<WarriorMovement>().enabled = false;
     }
 
     void FixedUpdate() {
-        controller.Move(horizontalMove * Time.fixedDeltaTime, jump);
+        controller.Move(horizontalMove * Time.fixedDeltaTime, verticalMove * Time.fixedDeltaTime, jump);
         jump = false;
     }
 }
