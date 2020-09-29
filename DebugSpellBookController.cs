@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellBookController : MonoBehaviour
+public class DebugSpellBookController : MonoBehaviour
 {
     public SpellBook spellbook;
 
