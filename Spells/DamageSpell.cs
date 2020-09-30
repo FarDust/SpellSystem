@@ -14,7 +14,7 @@ public abstract class DamageSpell : BaseSpell, IOnHit
     public GameObject onDestroyEffect;
 
     public override void Cast(Transform parent, Vector3 position, Vector3 direction) {
-        Quaternion lookAt = Quaternion.LookRotation(direction);
+        Quaternion lookAt = Quaternion.FromToRotation(new Vector3(1f, 0f, 0f), direction);
         Instantiate(spellPrefab, position, lookAt);
         base.Cast(parent, position, direction);
     }
