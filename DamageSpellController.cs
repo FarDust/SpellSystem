@@ -48,7 +48,8 @@ public class DamageSpellController : MonoBehaviour
 
     IEnumerator FlashAway() {
         GameObject effect = Instantiate(spell.onDestroyEffect, gameObject.transform.position, gameObject.transform.rotation);
-        gameObject.SetActive(false);
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        gameObject.GetComponent<Collider2D>().enabled = false;
         yield return new WaitForSeconds(effect.GetComponent<ParticleSystem>().main.duration);
         Destroy(gameObject);
     }
