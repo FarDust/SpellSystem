@@ -54,14 +54,19 @@ public class WizardCombat : MonoBehaviour
             Debug.Log("Enemy hit:" + enemy.name);
         }
     }
-    
-        void TakeHit(int damage){
-        SoundManagingScript.PlaySound("wizardHit");
-        animator.SetTrigger("Hurt");
-        currentHealth -= damage;
+
+    public void TakeHit(int damage)
+    {
+        if (damage > 0)
+        {
+            SoundManagingScript.PlaySound("wizardHit");
+            animator.SetTrigger("Hurt");
+        }
+        currentHealth = Mathf.Min(currentHealth - damage, maxHealth);
         healthBar.setHealth(Mathf.Max((float)currentHealth / maxHealth, 0f));
 
-        if (currentHealth <= 0){
+        if (currentHealth <= 0)
+        {
             PlayerRelease();
         }
     }
