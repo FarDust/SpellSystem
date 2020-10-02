@@ -5,6 +5,7 @@ using UnityEngine;
 public class WizardSpellBookController : MonoBehaviour
 {
     public SpellBook spellbook;
+    public Animator animator;
 
     void Update()
     {
@@ -15,6 +16,7 @@ public class WizardSpellBookController : MonoBehaviour
             direction = Vector3.Scale(direction, new Vector3(1f, 1f, 0f));
             direction.Normalize();
             transform.forward = Vector3.Cross(direction, new Vector3(1f, 1f, 0f)).normalized;
+            animator.SetTrigger("Attack");
             spellbook.spells[0].Cast(transform, transform.position + direction , direction);
         }
     }

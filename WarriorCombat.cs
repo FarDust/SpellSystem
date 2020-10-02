@@ -43,14 +43,6 @@ public class WarriorCombat : MonoBehaviour
                     nextAttackTime = Time.time + attackCooldown;
                 }
             }
-            if (Debug.isDebugBuild)
-            {
-                if (Input.GetKeyDown("g"))
-                {
-                    SoundManagingScript.PlaySound("warriorHit");
-                    TakeHit(10);
-                }
-            }
         }
 
     }
@@ -68,9 +60,12 @@ public class WarriorCombat : MonoBehaviour
     }
 
     public void TakeHit(int damage){
-        SoundManagingScript.PlaySound("warriorHit");
-        animator.SetTrigger("Hurt");
-        currentHealth -= damage;
+        if (damage > 0)
+        {
+            SoundManagingScript.PlaySound("warriorHit");
+            animator.SetTrigger("Hurt");
+        }
+        currentHealth = Mathf.Min(currentHealth - damage, maxHealth);
         healthBar.setHealth(Mathf.Max((float)currentHealth / maxHealth, 0f));
 
         if (currentHealth <= 0){

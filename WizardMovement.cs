@@ -41,7 +41,7 @@ public class WizardMovement : MonoBehaviour
     }
 
     public void BlockActions() {
-        gameObject.GetComponent<WarriorMovement>().enabled = false;
+        enabled = false;
     }
 
     void FixedUpdate() {
