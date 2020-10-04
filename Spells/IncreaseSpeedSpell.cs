@@ -17,14 +17,11 @@ public class IncreaseSpeedSpell : BoostSpell
         Collider2D[] collisions = Physics2D.OverlapCircleAll(position, hitRadius);
         foreach (Collider2D target in collisions)
         {
-
-            if ((targetLayers.value & 1 << target.gameObject.layer) == 1 << target.gameObject.layer)
-            {
-                target.gameObject.SendMessage("IncreaseSpeed", speedMultiplier);
-                //base.Effect(target);
+            WarriorMovement warrior = target.gameObject.GetComponent<WarriorMovement>();
+            if (warrior && warrior.IncreaseSpeed(speedMultiplier)){
+                    base.Effect(target);
+                };
             }
-        }
         base.Apply(position);
     }
-
 }

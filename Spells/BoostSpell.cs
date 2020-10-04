@@ -7,13 +7,16 @@ public class BoostSpell : BaseSpell
     public AudioClip onCreateSound;
     public AudioClip onCastingSound;
     public AudioClip onCancelSound;
+    public AudioClip onEffectSound;
 
     public LayerMask targetLayers;
     public float hitRadius;
     public float effectRadius;
     public float castPeriod;
     public float duration;
+    public float effectDuration;
     public GameObject spellPrefab;
+    public GameObject effectPrefab;
 
     public override void Cast(Transform parent, Vector3 position, Vector3 direction)
     {
@@ -27,9 +30,8 @@ public class BoostSpell : BaseSpell
         Vector3 direction = target.gameObject.transform.position;
         direction = Vector3.Scale(direction, new Vector3(1f, 1f, 0f));
         direction.Normalize();
-        GameObject spell = Instantiate(spellPrefab, target.gameObject.transform);
+        GameObject spell = Instantiate(effectPrefab, target.gameObject.transform);
         spell.transform.localScale = effectRadius * spell.transform.localScale;
-        base.Cast(target.gameObject.transform, target.gameObject.transform.position + direction , direction);
     }
 
     public virtual void Apply(Vector3 position)
