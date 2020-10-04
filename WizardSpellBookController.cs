@@ -26,7 +26,7 @@ public class WizardSpellBookController : MonoBehaviour
             Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f));
             Vector3 direction = worldMousePosition - gameObject.transform.position;
             direction = Vector3.Scale(direction, new Vector3(1f, 1f, 0f));
-            //direction.Normalize();
+            direction.Normalize();
             //transform.forward = Vector3.Cross(direction, new Vector3(1f, 1f, 0f)).normalized;
             spellbook.spells[spellNumber].Cast(transform, transform.position + direction , direction);
         }

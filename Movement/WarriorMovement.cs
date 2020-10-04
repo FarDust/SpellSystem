@@ -53,15 +53,23 @@ private void Awake() {
         }
     }
 
-    public void IncreaseJump(float multiplier){
+    public bool IncreaseJump(float multiplier){
+        if (controller.m_JumpForce > controller.defaultJumpForce){
+            return false;
+        }
         increaseJumpTimer = Time.time + boostDuration;
         controller.m_JumpForce = controller.m_JumpForce * multiplier;
+        return true;
     }
 
-    public void IncreaseSpeed(float multiplier){
+    public bool IncreaseSpeed(float multiplier){
+        if (runSpeed > defaultRunSpeed){
+            return false;
+        }
         increaseSpeedTimer = Time.time + boostDuration;
         runSpeed = runSpeed * multiplier;
         climbSpeed = climbSpeed * multiplier;
+        return true;
     }
 
     public void OnLanding() {
