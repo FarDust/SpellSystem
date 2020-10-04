@@ -3,7 +3,8 @@ using UnityEngine.Events;
 
 public class CharacterController2D : MonoBehaviour
 {
-	[SerializeField] private float m_JumpForce = 400f;							// Amount of force added when the player jumps.
+	[HideInInspector] public float defaultJumpForce;
+	[SerializeField] public float m_JumpForce = 400f;							// Amount of force added when the player jumps.
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;	// How much to smooth out the movement
 	[SerializeField] private bool m_AirControl = false;							// Whether or not a player can steer while jumping;
 	public LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
@@ -38,6 +39,7 @@ public class CharacterController2D : MonoBehaviour
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 		naturalGravity = m_Rigidbody2D.gravityScale;
+		defaultJumpForce = m_JumpForce;
 
 		if (OnLandEvent == null)
 			OnLandEvent = new UnityEvent();
