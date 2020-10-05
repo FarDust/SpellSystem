@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WizardSpellBookController : MonoBehaviour
 {
@@ -21,23 +22,22 @@ public class WizardSpellBookController : MonoBehaviour
 
 
     void Update(){
+        if (spellbook.spells[spellNumber].ReviewCooldown(lastCast[spellNumber]) || lastCast[spellNumber] == 0){
+            spellUI.GetComponent<Image>().color = new Color32(255,255,225,255);
+        }
         if(Input.GetAxis("Mouse ScrollWheel") > 0){
             spellNumber = spellNumber + 1;
             if (spellNumber >= spellbook.spells.Count){
                 spellNumber = 0;
             }
-            currentFrame = (float)spellNumber/(float)spellbook.spells.Count;
-            Debug.Log(currentFrame);
-            spellUI.GetComponent<Animator>().Play("CurrentSpell", 0, currentFrame);
+            SetCurrentSpell();
         }
         if(Input.GetAxis("Mouse ScrollWheel") < 0){
             spellNumber = spellNumber - 1;
             if (spellNumber < 0){
                 spellNumber = spellbook.spells.Count - 1;
             }
-            currentFrame = (float)spellNumber/(float)spellbook.spells.Count;
-            Debug.Log(currentFrame);
-            spellUI.GetComponent<Animator>().Play("CurrentSpell", 0, currentFrame);
+            SetCurrentSpell();
         }
 
         if (Input.GetButtonDown("Spell_wizard"))
@@ -52,6 +52,7 @@ public class WizardSpellBookController : MonoBehaviour
                 StartCoroutine(spellDelay(0.5f));
                 animator.SetTrigger("Attack");
                 spellbook.spells[spellNumber].Cast(transform, transform.position + direction, direction);
+                spellUI.GetComponent<Image>().color = new Color32(255,255,225,40);
             }
         }
     }
@@ -60,5 +61,16 @@ public class WizardSpellBookController : MonoBehaviour
         movement.enabled = false;
         yield return new WaitForSeconds(seconds);
         movement.enabled = true;
+    }
+    void SetCurrentSpell(){
+        // The spell is black if you can't cast it
+        if (spellbook.spells[spellNumber].ReviewCooldown(lastCast[spellNumber]) || lastCast[spellNumber] == 0){
+            spellUI.GetComponent<Image>().color = new Color32(255,255,225,255);
+        } 
+        else {
+            spellUI.GetComponent<Image>().color = new Color32(255,255,225,40);
+        }
+        currentFrame = (float)spellNumber/(float)spellbook.spells.Count;
+        spellUI.GetComponent<Animator>().Play("CurrentSpell", 0, currentFrame);
     }
 }
