@@ -32,12 +32,17 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    public void Request(ValueTuple<Item, GameObject> requestedPair) {
-        Item item = requestedPair.Item1;
-        GameObject requester = requestedPair.Item2;
+    public void Request(EventMessage requestedPair) {
+        Item item = requestedPair.item;
+        GameObject requester = requestedPair.gameObject;
         if(inventory.keyObjects.ContainsKey(item.ID)){
             inventory.UseKeyItem(item.ID);
             requester.SendMessage("Activate");
         }
     }
+}
+
+public class EventMessage {
+    public GameObject gameObject;
+    public Item item;
 }
