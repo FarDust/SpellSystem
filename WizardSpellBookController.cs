@@ -6,6 +6,12 @@ public class WizardSpellBookController : MonoBehaviour
 {
     public SpellBook spellbook;
     public Animator animator;
+    private CharacterController2D movement;
+
+    private void Start()
+    {
+        movement = gameObject.GetComponent<CharacterController2D>();
+    }
 
     void Update()
     {
@@ -16,8 +22,15 @@ public class WizardSpellBookController : MonoBehaviour
             direction = Vector3.Scale(direction, new Vector3(1f, 1f, 0f));
             direction.Normalize();
             transform.forward = Vector3.Cross(direction, new Vector3(1f, 1f, 0f)).normalized;
+            StartCoroutine(spellDelay(0.5f));
             animator.SetTrigger("Attack");
             spellbook.spells[0].Cast(transform, transform.position + direction , direction);
         }
+    }
+
+    private IEnumerator spellDelay(float seconds) {
+        movement.enabled = false;
+        yield return new WaitForSeconds(seconds);
+        movement.enabled = true;
     }
 }
