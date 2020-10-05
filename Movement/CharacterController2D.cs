@@ -87,13 +87,13 @@ public class CharacterController2D : MonoBehaviour
 			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
 			// If the input is moving the player right and the player is facing left...
-			if (horizontalMove > 0 && !m_FacingRight)
+			if (horizontalMove > 0 && (transform.forward.z == -1))
 			{
 				// ... flip the player.
 				Flip();
 			}
 			// Otherwise if the input is moving the player left and the player is facing right...
-			else if (horizontalMove < 0 && m_FacingRight)
+			else if (horizontalMove < 0 && transform.forward.z == 1)
 			{
 				// ... flip the player.
 				Flip();
