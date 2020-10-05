@@ -6,8 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Inventory", menuName = "ScriptableObjects/Inventory", order = 1)]
 public class Inventory : ScriptableObject
 {
-    public Dictionary<int, Item> keyObjects;
-    public Dictionary<int, ValueTuple<Item, int>> objects;
+    public Dictionary<int, Item> keyObjects = new Dictionary<int, Item>();
+    public Dictionary<int, ValueTuple<Item, int>> objects = new Dictionary<int, ValueTuple<Item, int>>();
     public List<Item> usableSlot;
 
     public void AddItem(Item item) {
@@ -38,4 +38,10 @@ public class Inventory : ScriptableObject
     public void DropItem(int Id) {
         keyObjects.Remove(Id);
     }
+
+    public void UseKeyItem(int Id)
+    {
+        keyObjects.Remove(Id);
+    }
+
 }

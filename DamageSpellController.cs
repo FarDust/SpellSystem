@@ -23,7 +23,9 @@ public class DamageSpellController : MonoBehaviour
     {
         if ((explodeLayers.value & 1 << collision.gameObject.layer) == 1 << collision.gameObject.layer)
         {
-            spell.OnHit(collision.gameObject);
+            if ((targetLayers.value & 1 << collision.gameObject.layer) == 1 << collision.gameObject.layer) {
+                spell.OnHit(collision.gameObject);
+            }
             Collider2D[] collisions = Physics2D.OverlapCircleAll(transform.position, spell.hitRadius, targetLayers);
             foreach(Collider2D target in collisions)
             {
@@ -33,14 +35,14 @@ public class DamageSpellController : MonoBehaviour
                 }
             }
             source.Stop();
-            AudioSource.PlayClipAtPoint(spell.onHitSound, gameObject.transform.position, 1f);
+            AudioSource.PlayClipAtPoint(spell.onHitSound, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -8), 1f);
             StartCoroutine(FlashAway());
         }
     }
 
     IEnumerator playSpellSound()
     {
-        source.PlayOneShot(spell.onCreateSound);
+        AudioSource.PlayClipAtPoint(spell.onCreateSound, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -8), 1f);
         yield return new WaitForSeconds(spell.onCreateSound.length);
         source.clip = spell.onTravelSound;
         source.Play();
