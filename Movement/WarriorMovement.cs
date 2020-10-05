@@ -8,13 +8,30 @@ public class WarriorMovement : MonoBehaviour
     public Animator animator;
 
     public float runSpeed = 40f;
+    float defaultRunSpeed;
     public float climbSpeed = 100f;
+    float defaultClimbSpeed;
     float horizontalMove = 0f;
     float verticalMove = 0f;
     bool jump = false;
+    float increaseSpeedTimer = 0f;
+    float increaseJumpTimer = 0f;
+    public float boostDuration = 20f;
+
+private void Awake() {
+		defaultRunSpeed = runSpeed;
+        defaultClimbSpeed = climbSpeed;
+	}
 
     // Update is called once per frame
     void Update() {
+        if (Time.time >= increaseJumpTimer){
+            controller.m_JumpForce = controller.defaultJumpForce;
+        }
+        if (Time.time >= increaseSpeedTimer){
+            runSpeed = defaultRunSpeed;
+            climbSpeed = defaultClimbSpeed;
+        }
         horizontalMove = Input.GetAxisRaw("Horizontal_warrior") * runSpeed;
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
@@ -34,6 +51,25 @@ public class WarriorMovement : MonoBehaviour
             SoundManagingScript.PlaySound("warriorJump");
             animator.SetBool("isJumping", true);
         }
+    }
+
+    public bool IncreaseJump(float multiplier){
+        if (controller.m_JumpForce > controller.defaultJumpForce){
+            return false;
+        }
+        increaseJumpTimer = Time.time + boostDuration;
+        controller.m_JumpForce = controller.m_JumpForce * multiplier;
+        return true;
+    }
+
+    public bool IncreaseSpeed(float multiplier){
+        if (runSpeed > defaultRunSpeed){
+            return false;
+        }
+        increaseSpeedTimer = Time.time + boostDuration;
+        runSpeed = runSpeed * multiplier;
+        climbSpeed = climbSpeed * multiplier;
+        return true;
     }
 
     public void OnLanding() {

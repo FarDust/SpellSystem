@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemController : MonoBehaviour
 {
 
     public Item itemData;
     public string triggerBy = "Player";
+    public GameObject visualInventory;
 
     private void Update()
     {
@@ -21,6 +23,7 @@ public class ItemController : MonoBehaviour
             collision.gameObject.SendMessage("PickUp", itemData);
             PlaySound(transform.position, itemData);
             Destroy(gameObject);
+            visualInventory.GetComponent<Image>().enabled = true;
         }
     }
 
