@@ -8,10 +8,13 @@ public class WizardSpellBookController : MonoBehaviour
     private int spellNumber = 0;
     public Animator animator;
     private CharacterController2D movement;
+    private List<float> lastCast;
 
     private void Start()
     {
         movement = gameObject.GetComponent<CharacterController2D>();
+        lastCast = new List<float>(new float[spellbook.spells.Count]);
+        
     }
 
     void Update(){
@@ -29,15 +32,19 @@ public class WizardSpellBookController : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Spell_wizard")){
-            Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f));
-            Vector3 direction = worldMousePosition - gameObject.transform.position;
-            direction = Vector3.Scale(direction, new Vector3(1f, 1f, 0f));
-            direction.Normalize();
-            transform.forward = Vector3.Cross(direction, new Vector3(1f, 1f, 0f)).normalized;
-            StartCoroutine(spellDelay(0.5f));
-            animator.SetTrigger("Attack");
-            spellbook.spells[spellNumber].Cast(transform, transform.position + direction , direction);
+        if (Input.GetButtonDown("Spell_wizard"))
+        {
+            if (spellbook.spells[spellNumber].ReviewCooldown(lastCast[spellNumber]) || lastCast[spellNumber] == 0) {
+                lastCast[spellNumber] = Time.time;
+                Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f));
+                Vector3 direction = worldMousePosition - gameObject.transform.position;
+                direction = Vector3.Scale(direction, new Vector3(1f, 1f, 0f));
+                direction.Normalize();
+                transform.forward = Vector3.Cross(direction, new Vector3(1f, 1f, 0f)).normalized;
+                StartCoroutine(spellDelay(0.5f));
+                animator.SetTrigger("Attack");
+                spellbook.spells[spellNumber].Cast(transform, transform.position + direction, direction);
+            }
         }
     }
 
