@@ -7,14 +7,20 @@ public class InventoryController : MonoBehaviour
 {
 
     public Inventory inventory;
+    # public InventoryUI inventoryUI;
 
     private void Start()
     {
         
     }
 
+    private void updateInventory() {
+        
+    }
+
     public void PickUp(Item item) {
         inventory.AddItem(item);
+        updateInventory();
     }
 
     public void assignSlot(int slot, Item item) {

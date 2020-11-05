@@ -23,7 +23,10 @@ public class ItemController : MonoBehaviour
             collision.gameObject.SendMessage("PickUp", itemData);
             PlaySound(transform.position, itemData);
             Destroy(gameObject);
-            visualInventory.GetComponent<Image>().enabled = true;
+            if (visualInventory != null)
+            {
+                visualInventory.GetComponent<Image>().enabled = true;
+            }
         }
     }
 
