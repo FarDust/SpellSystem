@@ -9,6 +9,7 @@ public class InventoryController : MonoBehaviour
     public Inventory inventory;
     public Canvas drawingCanvas;
     public GameObject inventoryUIprefab;
+    private float lastTime;
     private UIInventoryController inventoryUIController;
 
     private void Start()
@@ -18,6 +19,16 @@ public class InventoryController : MonoBehaviour
         inventoryUIController = inventoryUI.GetComponent<UIInventoryController>();
         inventoryUI.SendMessage("setInventory", gameObject.GetComponent<InventoryController>());
         inventoryUI.SendMessage("setUsableButtoms", inventory.usableSlot.Count);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyUp("1")) {
+            useSlot(0, (ConsumableItem)inventory.usableSlot[0]);
+        }
+        if (Input.GetKeyUp("2")) {
+            useSlot(1, (ConsumableItem)inventory.usableSlot[1]);
+        }
     }
 
     private void updateInventory() {
