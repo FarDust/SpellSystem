@@ -11,7 +11,7 @@ public class Inventory : ScriptableObject
     public List<Item> usableSlot;
 
     public void AddItem(Item item) {
-        if (item is Item)
+        if (item.GetType() == typeof(Item))
         {
             if (keyObjects.ContainsKey(item.ID))
             {

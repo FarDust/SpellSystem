@@ -73,6 +73,16 @@ public class WarriorCombat : MonoBehaviour
         }
     }
 
+    public void modifyAttack(int amount) {
+        StartCoroutine(buffAttack(amount, 10));
+    }
+
+    IEnumerator buffAttack(int amount, float time) {
+        attackDamage += amount;
+        yield return new WaitForSeconds(time);
+        attackDamage = Mathf.Max(0, attackDamage - amount);
+    }
+
     public void PlayerRelease() {
         gameObject.SendMessage("BlockActions");
         StartCoroutine(Die());

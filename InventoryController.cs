@@ -7,19 +7,35 @@ public class InventoryController : MonoBehaviour
 {
 
     public Inventory inventory;
-    # public InventoryUI inventoryUI;
+    public Canvas drawingCanvas;
+    public GameObject inventoryUIprefab;
+    private UIInventoryController inventoryUIController;
 
     private void Start()
     {
-        
+        GameObject inventoryUI = Instantiate(inventoryUIprefab);
+        inventoryUI.transform.SetParent(drawingCanvas.transform, false);
+        inventoryUIController = inventoryUI.GetComponent<UIInventoryController>();
+        inventoryUI.SendMessage("setInventory", gameObject.GetComponent<InventoryController>());
+        inventoryUI.SendMessage("setUsableButtoms", inventory.usableSlot.Count);
     }
 
     private void updateInventory() {
-        
+        inventoryUIController.SendMessage("newItem", inventory);
     }
 
     public void PickUp(Item item) {
         inventory.AddItem(item);
+        if (item is ConsumableItem) {
+            for (int i = 0; i < inventory.usableSlot.Count; i++)
+            {
+                if (inventory.usableSlot[i] == null )
+                {
+                    assignSlot(i, item);
+                    break;
+                }
+            }
+        }
         updateInventory();
     }
 
@@ -35,6 +51,7 @@ public class InventoryController : MonoBehaviour
         {
             item.Use(gameObject);
             inventory.objects[item.ID] = (inventory.objects[item.ID].Item1, inventory.objects[item.ID].Item2 - 1);
+            inventoryUIController.SendMessage("newItem", inventory);
         }
     }
 
