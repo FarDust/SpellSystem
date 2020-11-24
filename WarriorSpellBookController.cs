@@ -16,16 +16,22 @@ public class WarriorSpellBookController : MonoBehaviour
     }
     void Update()
     {
-        if (spellbook.spells[0].ReviewCooldown(lastCast[0])){
+        if (spellUI != null && spellbook.spells[0].ReviewCooldown(lastCast[0])){
             spellUI.GetComponent<Image>().color = new Color32(255,255,225,255);
         }
-        if (Input.GetKeyDown(keyBindings[0]))
+        for (int i = 0; i < spellbook.spells.Count; i++)
         {
-            if (spellbook.spells[0].ReviewCooldown(lastCast[0]) || lastCast[0] == 0)
+            if (Input.GetKeyDown(keyBindings[i]))
             {
-                lastCast[0] = Time.time;
-                spellbook.spells[0].Cast(transform, transform.position, Vector3.zero);
-                spellUI.GetComponent<Image>().color = new Color32(0,0,0,40);
+                if (spellbook.spells[i].ReviewCooldown(lastCast[i]) || lastCast[i] == 0)
+                {
+                    lastCast[i] = Time.time;
+                    spellbook.spells[i].Cast(transform, transform.position, Vector3.zero);
+                    if (spellUI != null)
+                    {
+                        spellUI.GetComponent<Image>().color = new Color32(0, 0, 0, 40);
+                    }
+                }
             }
         }
     }
