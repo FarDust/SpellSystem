@@ -22,6 +22,10 @@ public class Inventory : ScriptableObject
             {
                 keyObjects.Add(item.ID, item);
             }
+            if (Debug.isDebugBuild)
+            {
+                Debug.Log("Normal Item");
+            }
         }
         else if (item is StackableItem) {
             if (objects.ContainsKey(item.ID))
@@ -32,6 +36,14 @@ public class Inventory : ScriptableObject
             {
                 objects.Add(item.ID, (item, 1));
             }
+            if (Debug.isDebugBuild)
+            {
+                Debug.Log("Stackable Item");
+            }
+        } else
+        {
+            Debug.LogWarning("Item not added!");
+            Debug.LogWarning(item);
         }
     }
 

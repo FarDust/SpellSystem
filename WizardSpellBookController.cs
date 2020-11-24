@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class WizardSpellBookController : MonoBehaviour
 {
@@ -40,7 +41,7 @@ public class WizardSpellBookController : MonoBehaviour
             SetCurrentSpell();
         }
 
-        if (Input.GetButtonDown("Spell_wizard"))
+        if ( !EventSystem.current.IsPointerOverGameObject() && Input.GetButtonDown("Spell_wizard"))
         {
             if (spellbook.spells[spellNumber].ReviewCooldown(lastCast[spellNumber]) || lastCast[spellNumber] == 0) {
                 lastCast[spellNumber] = Time.time;

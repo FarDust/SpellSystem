@@ -7,6 +7,7 @@ public class InventoryController : MonoBehaviour
 {
 
     public Inventory inventory;
+    public List<string> KeyBindings;
     public Canvas drawingCanvas;
     public GameObject inventoryUIprefab;
     private float lastTime;
@@ -23,11 +24,12 @@ public class InventoryController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyUp("1")) {
-            useSlot(0, (ConsumableItem)inventory.usableSlot[0]);
-        }
-        if (Input.GetKeyUp("2")) {
-            useSlot(1, (ConsumableItem)inventory.usableSlot[1]);
+        for (int i = 0; i < inventory.usableSlot.Count; i++)
+        {
+            if (i < KeyBindings.Count && Input.GetKeyUp(KeyBindings[i]))
+            {
+                useSlot(i, (ConsumableItem)inventory.usableSlot[i]);
+            }
         }
     }
 
@@ -58,11 +60,14 @@ public class InventoryController : MonoBehaviour
 
     public void useSlot(int slot, ConsumableItem item)
     {
-        if (slot < inventory.usableSlot.Count && inventory.objects[item.ID].Item2 > 0)
+        if (inventory.objects.ContainsKey(item.ID))
         {
-            item.Use(gameObject);
-            inventory.objects[item.ID] = (inventory.objects[item.ID].Item1, inventory.objects[item.ID].Item2 - 1);
-            inventoryUIController.SendMessage("newItem", inventory);
+            if (slot < inventory.usableSlot.Count && inventory.objects[item.ID].Item2 > 0)
+            {
+                item.Use(gameObject);
+                inventory.objects[item.ID] = (inventory.objects[item.ID].Item1, inventory.objects[item.ID].Item2 - 1);
+                inventoryUIController.SendMessage("newItem", inventory);
+            }
         }
     }
 
