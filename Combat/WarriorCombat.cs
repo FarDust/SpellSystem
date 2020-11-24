@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WarriorCombat : MonoBehaviour
 {
+    public RedBorderController redBorder;
     public Animator animator;
     // Solo ataca a los objetos que se encuentren en la capa enemyLayer
     public LayerMask enemyLayer;
@@ -68,6 +69,7 @@ public class WarriorCombat : MonoBehaviour
         currentHealth = Mathf.Min(currentHealth - damage, maxHealth);
         healthBar.setHealth(Mathf.Max((float)currentHealth / maxHealth, 0f));
 
+        redBorder.UpdateBorder(currentHealth, maxHealth, 0);
         if (currentHealth <= 0){
             PlayerRelease();
         }

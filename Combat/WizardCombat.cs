@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WizardCombat : MonoBehaviour
 {
+    public RedBorderController redBorder;
     public Animator animator;
     // Solo ataca a los objetos que se encuentren en la capa enemyLayer
     public LayerMask enemyLayer;
@@ -64,6 +65,7 @@ public class WizardCombat : MonoBehaviour
         }
         currentHealth = Mathf.Min(currentHealth - damage, maxHealth);
         healthBar.setHealth(Mathf.Max((float)currentHealth / maxHealth, 0f));
+        redBorder.UpdateBorder(currentHealth, maxHealth, 1);
 
         if (currentHealth <= 0)
         {
