@@ -47,7 +47,7 @@ public class WizardSpellBookController : MonoBehaviour
                 lastCast[spellNumber] = Time.time;
                 Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f));
                 Vector3 direction = worldMousePosition - gameObject.transform.position;
-                direction = Vector3.Scale(direction, new Vector3(1f, 1f, 0f));
+                direction = Vector3.Scale(direction, new Vector3(1.5f, 1.5f, 0f));
                 direction.Normalize();
                 transform.forward = Vector3.Cross(direction, new Vector3(1f, 1f, 0f)).normalized;
                 StartCoroutine(spellDelay(0.5f));
