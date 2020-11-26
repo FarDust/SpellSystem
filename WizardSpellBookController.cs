@@ -41,7 +41,8 @@ public class WizardSpellBookController : MonoBehaviour
             SetCurrentSpell();
         }
 
-        if (Input.GetButtonDown("Spell_wizard"))
+        Debug.LogError(EventSystem.current.IsPointerOverGameObject());
+        if (!EventSystem.current.IsPointerOverGameObject() && Input.GetButtonDown("Spell_wizard"))
         {
             if (spellbook.spells[spellNumber].ReviewCooldown(lastCast[spellNumber]) || lastCast[spellNumber] == 0) {
                 lastCast[spellNumber] = Time.time;
