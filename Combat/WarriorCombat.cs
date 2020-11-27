@@ -68,6 +68,7 @@ public class WarriorCombat : MonoBehaviour
         }
         currentHealth = Mathf.Min(currentHealth - damage, maxHealth);
         healthBar.setHealth(Mathf.Max((float)currentHealth / maxHealth, 0f));
+        gameObject.SendMessage("showNormalPopup", damage);
 
         redBorder.UpdateBorder(currentHealth, maxHealth, 0);
         if (currentHealth <= 0){

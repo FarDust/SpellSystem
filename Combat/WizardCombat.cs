@@ -66,6 +66,7 @@ public class WizardCombat : MonoBehaviour
         currentHealth = Mathf.Min(currentHealth - damage, maxHealth);
         healthBar.setHealth(Mathf.Max((float)currentHealth / maxHealth, 0f));
         redBorder.UpdateBorder(currentHealth, maxHealth, 1);
+        gameObject.SendMessage("showNormalPopup", damage);
 
         if (currentHealth <= 0)
         {
