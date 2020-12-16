@@ -52,6 +52,9 @@ public class DamageSpellController : MonoBehaviour
         GameObject effect = Instantiate(spell.onDestroyEffect, gameObject.transform.position, gameObject.transform.rotation);
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
         gameObject.GetComponent<Collider2D>().enabled = false;
+        Rigidbody2D body = gameObject.GetComponent<Rigidbody2D>();
+        body.freezeRotation = true;
+        body.velocity = new Vector2(0,0);
         yield return new WaitForSeconds(effect.GetComponent<ParticleSystem>().main.duration);
         Destroy(gameObject);
     }
