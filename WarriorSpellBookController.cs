@@ -8,7 +8,7 @@ public class WarriorSpellBookController : MonoBehaviour
     public SpellBook spellbook;
     public List<string> keyBindings;
     private List<float> lastCast;
-    public GameObject spellUI;
+    public List<GameObject> spellUI;
 
     private void Start()
     {
@@ -16,20 +16,21 @@ public class WarriorSpellBookController : MonoBehaviour
     }
     void Update()
     {
-        if (spellUI != null && spellbook.spells[0].ReviewCooldown(lastCast[0])){
-            spellUI.GetComponent<Image>().color = new Color32(255,255,225,255);
-        }
         for (int i = 0; i < spellbook.spells.Count; i++)
         {
+            if (spellUI[i] != null && spellbook.spells[i].ReviewCooldown(lastCast[i]))
+            {
+                spellUI[i].GetComponent<Image>().color = new Color32(255,255,225,255);
+            }
             if (Input.GetKeyDown(keyBindings[i]))
             {
                 if (spellbook.spells[i].ReviewCooldown(lastCast[i]) || lastCast[i] == 0)
                 {
                     lastCast[i] = Time.time;
                     spellbook.spells[i].Cast(transform, transform.position, Vector3.zero);
-                    if (spellUI != null)
+                    if (spellUI[i] != null)
                     {
-                        spellUI.GetComponent<Image>().color = new Color32(0, 0, 0, 40);
+                        spellUI[i].GetComponent<Image>().color = new Color32(0, 0, 0, 40);
                     }
                 }
             }
