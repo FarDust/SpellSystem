@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af6735246ae24ea44a1472de59867100, type: 3}
+  m_Name: WarriorTauntAuraSpell
+  m_EditorClassIdentifier: 
+  cooldown: 5
+  onCreateSound: {fileID: 0}
+  onCastingSound: {fileID: 8300000, guid: 4dac470b933525c4597551a56865342b, type: 3}
+  onCancelSound: {fileID: 0}
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  hitRadius: 10
+  castPeriod: 0
+  duration: 3
+  spellPrefab: {fileID: 8445690582506890051, guid: c22193414874e874584fcfa8a43c7780, type: 3}

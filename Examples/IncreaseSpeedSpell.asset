@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f165909ea2e318946bc4e1fae295fac6, type: 3}
+  m_Name: IncreaseSpeedSpell
+  m_EditorClassIdentifier: 
+  cooldown: 30
+  onCreateSound: {fileID: 8300000, guid: 9205bd0bb5a074840a8ed737fb8bf1e7, type: 3}
+  onCastingSound: {fileID: 8300000, guid: 81c8d710b05b9514bad24ebd4455cad3, type: 3}
+  onCancelSound: {fileID: 8300000, guid: 9205bd0bb5a074840a8ed737fb8bf1e7, type: 3}
+  onEffectSound: {fileID: 8300000, guid: cc6699269b4c1d44ea1e860518b9bb73, type: 3}
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  hitRadius: 4
+  effectRadius: 2
+  castPeriod: 1
+  duration: 5
+  effectDuration: 20
+  spellPrefab: {fileID: 3463245655663207776, guid: 5ebf2924218765b48b9d46595732bf20, type: 3}
+  effectPrefab: {fileID: 4443561737485452958, guid: 594b89ef1130eaa4da7a713830be147a, type: 3}
+  speedMultiplier: 1.5

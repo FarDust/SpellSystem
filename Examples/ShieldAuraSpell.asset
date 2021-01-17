@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcc23f9080333314fb87473d62ad213e, type: 3}
+  m_Name: ShieldAuraSpell
+  m_EditorClassIdentifier: 
+  cooldown: 3
+  onCreateSound: {fileID: 0}
+  onCastingSound: {fileID: 0}
+  onCancelSound: {fileID: 0}
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 49665
+  hitRadius: 1
+  castPeriod: 0
+  duration: 2
+  spellPrefab: {fileID: 9048619070509205873, guid: 31a2808fb21275a469d32b4e8808faea, type: 3}

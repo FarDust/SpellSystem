@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65edad68c2f83e14fa54030a19793328, type: 3}
+  m_Name: HealBoost
+  m_EditorClassIdentifier: 
+  onCreateSound: {fileID: 0}
+  onCastingSound: {fileID: 0}
+  onCancelSound: {fileID: 0}
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  hitRadius: 5
+  castPeriod: 1
+  duration: 0
+  spellPrefab: {fileID: 7084958040301723778, guid: 7687e260823999a4b8fba2e0de36e387, type: 3}
+  healPerCast: 2000

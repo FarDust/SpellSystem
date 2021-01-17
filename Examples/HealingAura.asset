@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65edad68c2f83e14fa54030a19793328, type: 3}
+  m_Name: HealingAura
+  m_EditorClassIdentifier: 
+  cooldown: 10
+  onCreateSound: {fileID: 8300000, guid: 9205bd0bb5a074840a8ed737fb8bf1e7, type: 3}
+  onCastingSound: {fileID: 8300000, guid: 81c8d710b05b9514bad24ebd4455cad3, type: 3}
+  onCancelSound: {fileID: 8300000, guid: 9205bd0bb5a074840a8ed737fb8bf1e7, type: 3}
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  hitRadius: 2
+  castPeriod: 1
+  duration: 5
+  spellPrefab: {fileID: 7084958040301723778, guid: 7687e260823999a4b8fba2e0de36e387, type: 3}
+  healPerCast: 10
