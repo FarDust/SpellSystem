@@ -1,6 +1,6 @@
 # Simple Spell System 
 
-Simple Spell System is a spell system for unity to make spells using (Scriptable Objects)[https://docs.unity3d.com/Manual/class-ScriptableObject.html] coding Api provided in Unity
+Simple Spell System is a spell system for unity to make spells using [Scriptable Objects](https://docs.unity3d.com/Manual/class-ScriptableObject.html]) coding Api provided in Unity
 
 ## Usage
 
