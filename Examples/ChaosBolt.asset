@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5719f696fb378c04fa2c415e65bf5430, type: 3}
+  m_Name: ChaosBolt
+  m_EditorClassIdentifier: 
+  cooldown: 10
+  onHitSound: {fileID: 8300000, guid: 82791d6b2155e864baa5043f74eadd8d, type: 3}
+  onTravelSound: {fileID: 8300000, guid: 19bea5b7c5a798946aebcef88a87160a, type: 3}
+  onCreateSound: {fileID: 8300000, guid: 875c93e64b693bf4bbe6024ca673e7d0, type: 3}
+  damage: 90
+  hitRadius: 3
+  projectileVelocity: 7
+  spellPrefab: {fileID: 710433179027338307, guid: e07ef7fe14df376458cb2f4597da2666, type: 3}
+  onDestroyEffect: {fileID: 4873641439411407601, guid: e1a44c7651794044180b6e1612378509, type: 3}
